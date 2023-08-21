@@ -4,6 +4,7 @@ import uuid
 from datetime import datetime
 
 
+time = "%Y-%m-%dT%H:%M:%S.%f"
 class BaseModel:
     """A base class for all hbnb models"""
     def __init__(self, *args, **kwargs):
@@ -15,10 +16,8 @@ class BaseModel:
             self.updated_at = datetime.now()
             storage.new(self)
         else:
-            kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-            kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
+            kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'], time)
+            kwargs['created_at'] = datetime.strptime(kwargs['created_at'], time)
             del kwargs['__class__']
             self.__dict__.update(kwargs)
 
