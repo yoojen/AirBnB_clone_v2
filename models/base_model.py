@@ -63,12 +63,13 @@ class BaseModel:
         dictionary['updated_at'] = self.updated_at.isoformat()
         dictionary.pop("_sa_instance_state", None)
         return dictionary
+
     def delete(self):
         """delete instance by calling delete methond from storage"""
         models.storage.delete(self)
     
     def __str__(self):
         """Return the print/str representation of the BaseModel instance."""
-        d = self.__dict__.copy()
-        d.pop("_sa_instance_state", None)
-        return "[{}] ({}) {}".format(type(self).__name__, self.id, d)
+        my_dict = self.__dict__.copy()
+        my_dict.pop("_sa_instance_state", None)
+        return "[{}] ({}) {}".format(type(self).__name__, self.id, my_dict)
