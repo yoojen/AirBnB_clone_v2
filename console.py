@@ -134,7 +134,7 @@ class HBNBCommand(cmd.Cmd):
                         except Exception:
                             continue
                 new_dict[key] = value
-                print(new_dict)
+#                print(new_dict)
         if not args:
             print("** class name missing **")
             return
