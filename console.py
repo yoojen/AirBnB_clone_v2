@@ -2,6 +2,7 @@
 """ Console Module """
 import cmd
 import sys
+import models
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -216,22 +217,22 @@ class HBNBCommand(cmd.Cmd):
         print("Destroys an individual instance of a class")
         print("[Usage]: destroy <className> <objectId>\n")
 
-def do_all(self, arg):
-"""Prints string representations of instances"""
-args = shlex.split(arg)
-obj_list = []
-if len(args) == 0:
-obj_dict = models.storage.all()
-elif args[0] in classes:
-obj_dict = models.storage.all(classes[args[0]])
-else:
-print("** class doesn't exist **")
-return False
-for key in obj_dict:
-obj_list.append(str(obj_dict[key]))
-print("[", end="")
-print(", ".join(obj_list), end="")
-print("]")
+    def do_all(self, arg):
+        """Prints string representations of instances"""
+        args = arg.split()
+        obj_list = []
+        if len(args) == 0:
+            obj_dict = models.storage.all()
+        elif args[0] in HBNBCommand.classes:
+            obj_dict = models.storage.all(HBNBCommand.classes[args[0]])
+        else:
+            print("** class doesn't exist **")
+            return False
+        for key in obj_dict:
+            obj_list.append(str(obj_dict[key]))
+        print("[", end="")
+        print(", ".join(obj_list), end="")
+        print("]")
         
     def help_all(self):
         """ Help information for the all command """
