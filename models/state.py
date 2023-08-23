@@ -8,12 +8,12 @@ from os import getenv
 
 class State(BaseModel, Base):
     """ State class """
-    if getenv("HBNB_TYPE_STORAGE") == 'db':
+    if models.storage_envirn == 'db':
         __tablename__ = 'states'
         name = Column(String(128), nullable=False)
         cities = relationship('City', backref='state')
-        
-    if getenv("HBNB_TYPE_STORAGE") != "db":
+    else:
+        name = ""
         @property
         def cities(self):
             """returns all instances of city """
