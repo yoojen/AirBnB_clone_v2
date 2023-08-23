@@ -14,11 +14,6 @@ class State(BaseModel, Base):
         cities = relationship('City', backref='state')
     else:
         name = ""
-   def __init__(self, *args, **kwargs):
-    """initializes state"""
-    super().__init__(*args, **kwargs)
-
-    if models.storage_t != "db":
         @property
         def cities(self):
             """returns all instances of city """
@@ -28,3 +23,8 @@ class State(BaseModel, Base):
                 if city.state_id == self.id:
                     list_of_city.append(city)
             return list_of_city
+
+    def __init__(self, *args, **kwargs):
+        """initializes state"""
+        super().__init__(*args, **kwargs)
+        
