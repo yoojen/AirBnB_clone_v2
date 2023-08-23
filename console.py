@@ -133,6 +133,7 @@ class HBNBCommand(cmd.Cmd):
                         except Exception:
                             continue
                 new_dict[key] = value
+                print(new_dict)
         if not args:
             print("** class name missing **")
             return
@@ -140,7 +141,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[lines[0]](**new_dict)
-        storage.save()
+        storage.new(new_instance)
         print(new_instance.id)
         storage.save()
 
@@ -224,14 +225,8 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
-                    print_list.append(str(v))
-        else:
-            for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
-
-        print(print_list)
+            o = storage.all(eval(args))
+            print([o[k].__str__() for k in o])
 
     def help_all(self):
         """ Help information for the all command """
