@@ -13,6 +13,7 @@ else:
     Base = object
 time = "%Y-%m-%dT%H:%M:%S.%f"
 
+
 class BaseModel:
     if models.storage_envirn == "db":
         id = Column(String(60), nullable=False, primary_key=True)
@@ -30,7 +31,7 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key != "__class__":
                     setattr(self, key, value)
-            
+
             if kwargs.get("created_at", None) and type(self.created_at) is str:
                 self.created_at = datetime.strptime(kwargs["created_at"], time)
             else:
@@ -41,6 +42,7 @@ class BaseModel:
                 self.updated_at = datetime.utcnow()
             if kwargs.get("id", None) is None:
                 self.id = str(uuid.uuid4())
+
     def __str__(self):
         """Returns a string representation of the instance"""
         cls = (str(type(self)).split('.')[-1]).split('\'')[0]
@@ -67,7 +69,7 @@ class BaseModel:
     def delete(self):
         """delete instance by calling delete methond from storage"""
         models.storage.delete(self)
-    
+
     def __str__(self):
         """Return the print/str representation of the BaseModel instance."""
         my_dict = self.__dict__.copy()
