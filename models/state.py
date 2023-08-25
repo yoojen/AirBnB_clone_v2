@@ -6,6 +6,7 @@ from sqlalchemy.orm import relationship
 import models
 from os import getenv
 
+
 class State(BaseModel, Base):
     """ State class """
     if models.storage_envirn == 'db':
@@ -14,6 +15,7 @@ class State(BaseModel, Base):
         cities = relationship('City', backref='state')
     else:
         name = ""
+
         @property
         def cities(self):
             """returns all instances of city """
@@ -27,4 +29,3 @@ class State(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         """initializes state"""
         super().__init__(*args, **kwargs)
-        
