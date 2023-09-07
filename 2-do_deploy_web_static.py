@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ put data to the server by using fabfile"""
 
-from fabric.api import local, run, put
+from fabric.api import local, run, put, env
 from os import path
 from datetime import datetime
 
@@ -28,7 +28,7 @@ def do_deploy(archive_path):
     if run('mkdir -p /data/web_static/releases/' +filename + '/').failed is True:
         return False
     #uncompressing to other folader
-    if run('tar -xvzf' + upload_path + '-C /data/web_static/releases/' + filename).failed is True:
+    if run('tar -xzf ' + upload_path + ' -C /data/web_static/releases/' + filename).failed is True:
         return False
     #deleting compressed file from server
     if run('rm -rf ' + upload_path).failed is True:

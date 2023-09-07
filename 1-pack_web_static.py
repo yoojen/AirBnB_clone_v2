@@ -13,7 +13,7 @@ def do_pack():
 
     date = datetime.now().strftime("%Y%m%d%H%M%S")
     file_name = "versions/web_static_{}.tgz".format(date)
-    if path.isdir("version") is False:
+    if path.exists("versions") is False:
         local("mkdir versions")
     # change to tgz
     local("tar -cvzf {} web_static".format(file_name))
