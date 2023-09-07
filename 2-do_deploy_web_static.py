@@ -3,7 +3,7 @@
     creates a .tgz archive from the contents - web_static
 """
 
-from fabric.api import local, run, put, env
+from fabric.api import run, put, env
 from os import path
 from datetime import datetime
 
@@ -13,7 +13,7 @@ def do_deploy(archive_path):
      """This function does deployment of tgz compressed file
          All goes on the server to be accessed via domain name
      """
-    if archive_path is None or path.exists(archive_path) is False:
+   if path.isfile(archive_path) is False:
         return False
     file = archive_path.split("/")[-1]
     filename = file.split(".")[0]
