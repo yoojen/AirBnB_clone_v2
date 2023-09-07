@@ -3,7 +3,7 @@
 """
 creates a .tgz archive from the contents - web_static
 """
-from fabric.api import run, put, env
+from fabric.api import run, put, env, local
 import os.path
 from datetime import datetime
 
