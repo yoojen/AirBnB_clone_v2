@@ -9,6 +9,18 @@ from datetime import datetime
 
 env.hosts = ["3.94.213.85", "34.227.93.137"]
 
+def do_pack():
+    """This function does pcking al files to one tgz compressed file"""
+
+    date = datetime.utcnow().strftime("%Y%m%d%H%M%S")
+    file_name = "versions/web_static_{}.tgz".format(date)
+    if os.path.isdir("versions") is False:
+        if local("mkdir -p versions").failed is True:
+            return None
+    if local("tar -cvzf {} web_static".format(file_name)).failed is True:
+        return None
+    return file_name
+
 def do_deploy(archive_path):
     """This function does deployment of tgz compressed file
      All goes on the server to be accessed via domain name
