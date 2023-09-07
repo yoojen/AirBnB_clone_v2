@@ -19,11 +19,9 @@ def do_deploy(archive_path):
     if run('mkdir -p /data/web_static/releases/' +filename + '/').failed is True:
         return False
     #uncompressing to other folader
-<<<<<<< HEAD
     if run('tar -xzf ' + upload_path + ' -C /data/web_static/releases/' + filename).failed is True:
-=======
+        return False
     if run('tar -xvzf ' + upload_path + '-C /data/web_static/releases/' + filename).failed is True:
->>>>>>> 78689d40d94467c1f9717b95cec869dc01716a09
         return False
     #deleting compressed file from server
     if run('rm -rf ' + upload_path).failed is True:
