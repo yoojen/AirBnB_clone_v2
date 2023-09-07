@@ -4,7 +4,7 @@ creates a .tgz archive from the contents - web_static
 """
 
 from fabric.api import local
-from os import path
+import os.path
 from datetime import datetime
 
 
@@ -18,4 +18,4 @@ def do_pack():
             return None
     if local("tar -cvzf {} web_static".format(file_name)).failed is True:
         return None
-    return file
+    return file_name
