@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-    creates a .tgz archive from the contents - web_static
-"""
+#creates a .tgz archive from the contents - web_static
 
 from fabric.api import run, put, env
 from os import path
