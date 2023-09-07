@@ -1,17 +1,30 @@
 #!/usr/bin/python3
 #creates a .tgz archive from the contents - web_static
-
+"""
+creates a .tgz archive from the contents - web_static
+"""
 from fabric.api import run, put, env
 from os import path
 from datetime import datetime
 
 env.hosts = ["3.94.213.85", "34.227.93.137"]
 
+def do_pack():
+    """This function does pcking al files to one tgz compressed file"""
+
+    date = datetime.now().strftime("%Y%m%d%H%M%S")
+    file_name = "versions/web_static_{}.tgz".format(date)
+    if path.exists("versions") is False:
+        local("mkdir versions")
+    # change to tgz
+    local("tar -cvzf {} web_static".format(file_name))
+    return file_name if path.exists(file_name) else None
 
 def do_deploy(archive_path):
     """This function does deployment of tgz compressed file
      All goes on the server to be accessed via domain name
     """
+    
     if path.isfile(archive_path) is False:
         return False
     file = archive_path.split("/")[-1]
