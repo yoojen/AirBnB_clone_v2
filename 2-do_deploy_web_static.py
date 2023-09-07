@@ -7,16 +7,6 @@ from datetime import datetime
 
 env.hosts = ["3.94.213.85", "34.227.93.137"]
 
-
-def do_pack():
-    local("mkdir -p version")
-    date = datetime.now().strftime("%Y%m%d%H%M%S")
-    file_name = "version/web-static_{}.tgz".format(date)
-    # change to tgz
-    local("tar -cvzf {} web-static".format(file_name))
-    return file_name if path.exists(file_name) else None
-
-
 def do_deploy(archive_path):
     if archive_path is None or path.exists(archive_path) is False:
         return False
