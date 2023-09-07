@@ -10,7 +10,7 @@ from datetime import datetime
 
 def do_pack():
     """This function does pcking al files to one tgz compressed file"""
-    
+
     date = datetime.now().strftime("%Y%m%d%H%M%S")
     file_name = "versions/web_static_{}.tgz".format(date)
     if path.isdir("version") is False:
