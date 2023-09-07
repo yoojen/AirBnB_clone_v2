@@ -7,6 +7,7 @@ from fabric.api import local, run, put, env
 from os import path
 from datetime import datetime
 
+env.hosts = ["3.94.213.85", "34.227.93.137"]
 
 def do_deploy(archive_path):
     if archive_path is None or path.exists(archive_path) is False:
@@ -21,10 +22,8 @@ def do_deploy(archive_path):
     #uncompressing to other folader
     if run('tar -xzf ' + upload_path + ' -C /data/web_static/releases/' + filename).failed is True:
         return False
-    if run('tar -xvzf ' + upload_path + '-C /data/web_static/releases/' + filename).failed is True:
-        return False
     #deleting compressed file from server
-    if run('rm -rf ' + upload_path).failed is True:
+    if run('rm ' + upload_path).failed is True:
         return False
     if run("mv /data/web_static/releases/" + filename + "/web_static/* /data/web_static/releases/"+ filename +"/").failed is True:
         return False
