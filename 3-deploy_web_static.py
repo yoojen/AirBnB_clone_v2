@@ -53,9 +53,9 @@ def do_deploy(archive_path):
     return True
   
 def deploy():
-  """create full deploy by calling previous created functions
+    """create full deploy by calling previous created functions
       this makes it easier to read codes
-  """
+    """
     archive = do_pack()
     if archive is None:
         return False
