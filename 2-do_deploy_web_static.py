@@ -1,11 +1,12 @@
 #!/usr/bin/python3
-""" put data to the server by using fabfile"""
+"""
+    creates a .tgz archive from the contents - web_static
+"""
 
 from fabric.api import local, run, put, env
 from os import path
 from datetime import datetime
 
-env.hosts = ["3.94.213.85", "34.227.93.137"]
 
 def do_deploy(archive_path):
     if archive_path is None or path.exists(archive_path) is False:
@@ -18,7 +19,11 @@ def do_deploy(archive_path):
     if run('mkdir -p /data/web_static/releases/' +filename + '/').failed is True:
         return False
     #uncompressing to other folader
+<<<<<<< HEAD
     if run('tar -xzf ' + upload_path + ' -C /data/web_static/releases/' + filename).failed is True:
+=======
+    if run('tar -xvzf ' + upload_path + '-C /data/web_static/releases/' + filename).failed is True:
+>>>>>>> 78689d40d94467c1f9717b95cec869dc01716a09
         return False
     #deleting compressed file from server
     if run('rm -rf ' + upload_path).failed is True:
