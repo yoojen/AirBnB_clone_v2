@@ -9,26 +9,31 @@ from datetime import datetime
 
 env.hosts = ["3.94.213.85", "34.227.93.137"]
 
+
 def do_deploy(archive_path):
-     """This function does deployment of tgz compressed file
-         All goes on the server to be accessed via domain name
-     """
-   if path.isfile(archive_path) is False:
+    """This function does deployment of tgz compressed file
+     All goes on the server to be accessed via domain name
+    """
+    if path.isfile(archive_path) is False:
         return False
     file = archive_path.split("/")[-1]
     filename = file.split(".")[0]
     upload_path = "/tmp/" + file
     if put(archive_path, upload_path).failed is True:
         return False
-    if run('mkdir -p /data/web_static/releases/' +filename + '/').failed is True:
+    my_run = run("mkdir -p /data/web_static/releases/" + filename + '/')
+    if my_run.failed is True:
         return False
-    #uncompressing to other folader
-    if run('tar -xzf ' + upload_path + ' -C /data/web_static/releases/' + filename).failed is True:
+    # uncompressing to other folader
+    if run("tar -xzf " + upload_path + " -C /data/web_static/releases/" +
+           filename).failed is True:
         return False
-    #deleting compressed file from server
+    # deleting compressed file from server
     if run('rm ' + upload_path).failed is True:
         return False
-    if run("mv /data/web_static/releases/" + filename + "/web_static/* /data/web_static/releases/"+ filename +"/").failed is True:
+    if run("mv /data/web_static/releases/" + filename + "/web_static/* /data/web_static
+            /releases/"+ filename +"/"
+          ).failed is True:
         return False
     if run("rm -rf data/web_static/releases/" + filename + "/web_static").failed is True:
         return False
