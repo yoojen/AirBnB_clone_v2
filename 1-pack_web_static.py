@@ -11,7 +11,8 @@ from datetime import datetime
 def do_pack():
     """This function does pcking al files to one tgz compressed file"""
 
-    local("mkdir -p version")
+    if path.isdir("version") is False:
+        local("mkdir version")
     date = datetime.now().strftime("%Y%m%d%H%M%S")
     file_name = "version/web_static_{}.tgz".format(date)
     # change to tgz
